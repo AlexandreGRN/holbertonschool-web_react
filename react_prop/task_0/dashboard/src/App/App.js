@@ -3,6 +3,7 @@ import './App.css';
 import Header from '../Header/Header.js';
 import Footer from '../Footer/Footer.js';
 import Login from '../Login/Login.js';
+import Notifications from '../Notifications/Notifications.js';
 
 function App() {
   return (
@@ -10,6 +11,9 @@ function App() {
       <header>
         <Header />
       </header>
+      <div id='root-notifications'>
+        <Notifications />
+      </div>
       <main role='main'>
         <Login />
       </main>
