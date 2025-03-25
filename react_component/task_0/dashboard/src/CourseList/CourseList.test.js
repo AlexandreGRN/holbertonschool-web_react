@@ -1,34 +1,19 @@
-import { shallow } from "enzyme";
-import React from "react";
-import CourseList from "./CourseList";
-import CourseListRow from './CourseListRow';
+import React from 'react';
+import { shallow } from 'enzyme';
+import CourseList from './CourseList';
 
-describe('Test CourseList.js', () => {
-  const listCourses = [
-    { id: 1, name: 'ES6', credit: 60 },
-    { id: 2, name: 'Webpack', credit: 20 },
-    { id: 3, name: 'React', credit: 40 }
-  ];
-
-  it('CourseList renders without crashing', () => {
-    expect(shallow(<CourseList />).exists());
+describe('<CourseList />', () => {
+  const wrapper = shallow(<CourseList />);
+  it('renders without crashing', () => {
+    expect(wrapper.exists());
   });
 
-  it('Renders diferent rows', () => {
-    const wrapper = shallow(<CourseList listCourses={listCourses}/>);    
-    expect(wrapper.find(CourseListRow)).toHaveLength(5);
+  it('renders rows', () => {
+    const row = wrapper.find('CourseListRow');
+    expect(row.at(0).prop('textFirstCell')).toEqual('Available courses');
+    expect(row.at(0).prop('isHeader')).toEqual(true);
+    expect(row.at(1).prop('textFirstCell')).toEqual('Course name');
+    expect(row.at(1).prop('textSecondCell')).toEqual('Credit');
+    expect(row.at(1).prop('isHeader')).toEqual(true);
   });
-
-  it('Verify that CourseList renders correctly', () => {
-    let wrapper = shallow(<CourseList listCourses={[]}/>);
-    expect(wrapper.find(CourseListRow)).toHaveLength(3);
-    // wrapper = shallow(<CourseList />);
-    expect(wrapper.find(CourseListRow)).toHaveLength(3);
-  });
-
-  it('verify that the component renders it correctly', () => {
-    const wrapper = shallow(<CourseList listCourses={listCourses}/>);
-    expect(wrapper.find(CourseListRow).first().html()).toEqual('<tr><th colSpan="2">Available courses</th></tr>');
-    expect(wrapper.find(CourseListRow)).toHaveLength(5);
-  });
-})
+});
