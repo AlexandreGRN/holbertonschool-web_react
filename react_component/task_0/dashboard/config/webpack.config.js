@@ -1,45 +1,43 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
   mode: 'development',
-  devtool: 'inline-source-map',
   entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
-    path: path.resolve('./dist'),
+    path: path.resolve(__dirname, '../dist'),
+    filename: 'bundle.js'
   },
   devServer: {
+    static: {
+      directory: path.resolve(__dirname, '../dist')
+    },
     hot: true,
-    contentBase: path.resolve('./dist'),
-    compress: true,
-    port: 3000,
+    port: 8564
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader']
       },
       {
-        test: /\.(jpg|png)$/i,
+        test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
           'file-loader',
           {
             loader: 'image-webpack-loader',
             options: {
-              bypassOnDebug: true,
-              disable: true,
-            },
-          },
-        ],
+              bypassOnDebug: true
+            }
+          }
+        ]
       },
       {
-        test: /\.jsx?$/i,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
-      },
-    ],
-  },
-};
+        use: ['babel-loader']
+      }
+    ]
+  }
+}
